@@ -249,7 +249,7 @@ def build_resp(rows):
         item = {}
         item["用户"] = nickname
         item["标题"] = post.title
-        item["正文内容"] = post.conetnt
+        item["正文内容"] = post.content
         item["创建时间"] = post.created_at.strftime('%Y-%m-%d %H:%M:%S')
         item["更新时间"] = post.updated_at.strftime('%Y-%m-%d %H:%M:%S') if post.updated_at else None
         
