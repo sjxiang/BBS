@@ -8,6 +8,7 @@ from database import Base
 
 
 class Chapter(Base):
+    """ 章节 """
     __tablename__ = "chapters"
     
     id: Mapped[int] = mapped_column(Integer, primary_key=True)           

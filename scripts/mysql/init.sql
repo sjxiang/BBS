@@ -34,6 +34,7 @@ DELETE FROM `posts` WHERE `id` = 5;
 SELECT * FROM `posts` WHERE `id` > 0 ORDER BY `created_at` DESC;
 
 
+INSERT INTO `settings` (`name`, `icp`, `copyright`) VALUES ('bbs论坛', '苏ICP备123456789号', '© 2023 bbs论坛 版权所有');
 
 DROP TABLE `categories`;
 DROP TABLE `chapters`;

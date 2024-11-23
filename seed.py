@@ -7,6 +7,9 @@ from models.user import User
 from models.post import Post
 from models.category import Category
 from models.course import Course
+from models.chapter import Chapter
+from models.like import Like
+from models.setting import Setting
 
 from models.user import Base as user_base
 from models.post import Base as post_base
@@ -134,6 +137,21 @@ def batch_add_course():
         
     log('批量插入课程, 成功')
 
+
+def batch_add_settings():
+    """ 批量插入系统设置数据 """
+    
+    setting = Setting(
+        name='bbs论坛', 
+        icp='苏ICP备123456789号', 
+        copyright='© 2023 bbs论坛 版权所有', 
+        created_at=datetime.now(),
+    )
+    db.add(setting)
+    db.commit()
+        
+    log('插入系统设置, 成功')
+    
     
     
 def seed():
@@ -142,16 +160,12 @@ def seed():
     batch_add_post()
     batch_add_category()
     batch_add_course()
+    batch_add_settings() 
     
-    
-    pass
-
-
 
 if __name__ == '__main__':    
 
     # create_table()  
-    # pass
     seed()
 
     

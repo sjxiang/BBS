@@ -3,17 +3,19 @@ from flask import Flask
 app = Flask(__name__)
 
 # 注册蓝图
-# from routes.user import main as user_routes
-# from routes.index import main as index_routes
-# app.register_blueprint(index_routes)
-# app.register_blueprint(user_routes, url_prefix='/user')
 
 # 后台接口
 from routes.admin.post import main as admin_post_routes
 from routes.admin.category import main as admin_category_routes
+from routes.admin.setting import main as admin_setting_routes
+from routes.admin.user import main as admin_user_routes
+from routes.admin.course import main as admin_course_routes
 
 app.register_blueprint(admin_post_routes, url_prefix='/admin/posts')
 app.register_blueprint(admin_category_routes, url_prefix='/admin/categories')
+app.register_blueprint(admin_setting_routes, url_prefix='/admin/settings')
+app.register_blueprint(admin_user_routes, url_prefix='/admin/users')
+app.register_blueprint(admin_course_routes, url_prefix='/admin/courses')
 
 
 # 运行代码

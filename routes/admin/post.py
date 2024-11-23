@@ -184,11 +184,8 @@ def search():
     
     try:
         resp = Post.query_post_by_field(query)
-        
-        if len(resp) == 0:
-            return success(msg="数据为空")
-        
         return success(msg="搜索文章成功", data=resp)
+    
     except exc.SQLAlchemyError as e:
         logger.error('search_post error, {}'.format(e))
         return error(HttpCode.db_error, msg="搜索文章失败")

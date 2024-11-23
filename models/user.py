@@ -1,12 +1,17 @@
-from sqlalchemy import Integer, String, DateTime, func, SmallInteger, TEXT, func, SmallInteger
+from sqlalchemy import Integer, String, DateTime, func, SmallInteger, TEXT, func, SmallInteger, or_
 from sqlalchemy.orm import Mapped, mapped_column
 from datetime import datetime
 
+from database import Base, connect_db
 
-from database import Base
+
+# 连接数据库
+db = connect_db()
 
 
 class User(Base):
+    """ 用户 """
+    
     __tablename__ = "users"
     
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
@@ -23,7 +28,7 @@ class User(Base):
     updated_at: Mapped[datetime] = mapped_column(DateTime, nullable=True)
     
     
-    # 小贴士, sqlalchemy 2.0 用法, 字段默认 NOT NULL, nullable=True 表示可以为空
+    # 小贴士, sqlalchemy 2.0 用法, 字段默认 NOT NULL, nullable=False 表示不可以为空
     
     
     def to_dict(self):
@@ -54,3 +59,26 @@ class User(Base):
             '更新时间': self.updated_at.strftime('%Y-%m-%d %H:%M:%S') if self.updated_at else None,
         }
         
+        
+    @staticmethod
+    def add_user(username, nickname, password, email, sex):
+        """ 添加用户 """
+        
+        condition_1 = or_(User.username == username, User.email == email)
+        user = db.query(User).filter(condition_1).one_or_none()
+        
+        if not user:
+            new_user = User(
+                username=username, nickname=nickname, password=password, email=email, 
+                avatar='default.jpeg', sex=sex, role=0, created_at=datetime.now(), updated_at=None,
+            )
+
+            db.add(new_user)
+            db.commit()
+            db.refresh(new_user)
+            
+            return new_user.to_dict()
+        
+        return None
+        
+    

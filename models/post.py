@@ -11,6 +11,8 @@ db = connect_db()
 
         
 class Post(Base):
+    """ 帖子 """
+    
     __tablename__ = "posts"
     
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
