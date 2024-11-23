@@ -10,7 +10,10 @@ app = Flask(__name__)
 
 # 后台接口
 from routes.admin.post import main as admin_post_routes
+from routes.admin.category import main as admin_category_routes
+
 app.register_blueprint(admin_post_routes, url_prefix='/admin/posts')
+app.register_blueprint(admin_category_routes, url_prefix='/admin/categories')
 
 
 # 运行代码

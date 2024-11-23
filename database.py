@@ -5,13 +5,17 @@ from sqlalchemy.ext.declarative import declarative_base
 
 """ 都是套路 """
 
-dsn = 'mysql+pymysql://root:my-secret-pw@127.0.0.1:13306/{}?charset=utf8mb4'.format('bbs_api_development')
+# 数据库名称
+database = 'bbs_api_development'
+
+# 数据库连接配置
+dsn = 'mysql+pymysql://root:my-secret-pw@127.0.0.1:13306/{}?charset=utf8mb4'.format(database)
 
 
-# 1, 建表、seed 填充数据 ...
+# 1
 engine = create_engine(dsn, echo=True)  
 
-# 2, 增删改查
+# 2
 session = sessionmaker(bind=engine, autocommit=False, autoflush=False)
 # 线程安全
 db = scoped_session(session)  
